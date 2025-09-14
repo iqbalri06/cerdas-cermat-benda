@@ -338,30 +338,7 @@ function FinalScore({ score, totalQuestions, playerName, userId, isRewardEligibl
           ID Peserta: <span className="font-mono font-medium">{userId?.substring(0, 8)}</span>
         </motion.div>
         
-        {/* Reward eligibility notification */}
-        {isRewardEligible && (
-          <motion.div
-            className="mt-6 py-4 px-4 bg-gradient-to-r from-amber-50 to-amber-100 border-2 border-amber-300 rounded-xl shadow-md"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6 }}
-          >
-            <div className="flex items-center justify-center mb-2">
-              <motion.span 
-                className="text-3xl mr-2"
-                animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-              >
-                🎁
-              </motion.span>
-              <h3 className="text-amber-800 font-bold text-lg">Selamat! Kamu Mendapatkan Hadiah!</h3>
-            </div>
-            <p className="text-sm text-amber-700">Tunjukkan skor ini kepada petugas untuk mengklaim hadiahmu. ID Peserta dan skor akan diverifikasi.</p>
-            <div className="mt-3 p-2 bg-white/80 rounded-lg text-center border border-amber-200">
-              <p className="font-medium text-amber-900">Kode Hadiah: <span className="font-bold tracking-wider">{userId?.substring(0, 6).toUpperCase()}-{score}{totalQuestions}</span></p>
-            </div>
-          </motion.div>
-        )}
+        {/* User ID is displayed above, no need for reward notification here */}
       </motion.div>
     </div>
   );
