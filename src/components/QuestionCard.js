@@ -26,7 +26,7 @@ function QuestionCard({ question, choices, correctAnswer, onAnswer }) {
   };
 
   const getAnswerClasses = (answer) => {
-    const baseClasses = "relative border-2 rounded-xl p-5 cursor-pointer transition-all duration-300 bg-white flex items-center";
+    const baseClasses = "relative border-2 rounded-xl p-3 md:p-5 cursor-pointer transition-all duration-300 bg-white flex items-center";
     
     if (!answerSubmitted) {
       return selectedAnswer === answer 
@@ -44,33 +44,33 @@ function QuestionCard({ question, choices, correctAnswer, onAnswer }) {
 
   return (
     <motion.div 
-      className="bg-gradient-to-br from-primary-50 to-white rounded-3xl shadow-lg p-6 md:p-8 max-w-4xl mx-auto border-4 border-accent-300 relative"
+      className="bg-gradient-to-br from-primary-50 to-white rounded-3xl shadow-lg p-4 md:p-6 lg:p-8 max-w-4xl mx-auto border-4 border-accent-300 relative overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, type: "spring" }}
     >
       {/* Decorative corner elements */}
-      <div className="absolute -top-5 -left-5 w-12 h-12 bg-accent-400 rounded-full border-4 border-white flex items-center justify-center text-2xl transform rotate-12 shadow-md">
+      <div className="absolute -top-3 -left-3 md:-top-5 md:-left-5 w-8 h-8 md:w-12 md:h-12 bg-accent-400 rounded-full border-2 md:border-4 border-white flex items-center justify-center text-lg md:text-2xl transform rotate-12 shadow-md">
         🧩
       </div>
       
-      <div className="absolute -top-5 -right-5 w-12 h-12 bg-secondary-400 rounded-full border-4 border-white flex items-center justify-center text-2xl transform -rotate-12 shadow-md">
+      <div className="absolute -top-3 -right-3 md:-top-5 md:-right-5 w-8 h-8 md:w-12 md:h-12 bg-secondary-400 rounded-full border-2 md:border-4 border-white flex items-center justify-center text-lg md:text-2xl transform -rotate-12 shadow-md">
         🔍
       </div>
       
       <motion.div 
-        className="mb-8 pb-4 border-b-4 border-accent-200 rounded-lg bg-white p-4 shadow-sm"
+        className="mb-6 md:mb-8 pb-3 md:pb-4 border-b-4 border-accent-200 rounded-lg bg-white p-3 md:p-4 shadow-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
-        <h3 className="text-xl md:text-2xl font-heading font-bold text-primary-800 flex items-center">
-          <span className="text-2xl mr-2">❓</span>
+        <h3 className="text-lg md:text-2xl font-heading font-bold text-primary-800 flex items-center">
+          <span className="text-xl md:text-2xl mr-2">❓</span>
           {question}
         </h3>
       </motion.div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
         {choices.map((choice, index) => (
           <motion.div
             key={index}
@@ -120,7 +120,7 @@ function QuestionCard({ question, choices, correctAnswer, onAnswer }) {
       
       <div className="flex justify-center">
         <motion.button 
-          className={`py-4 px-8 rounded-full font-bold text-lg text-white shadow-lg transition-all border-2
+          className={`py-3 md:py-4 px-6 md:px-8 rounded-full font-bold text-base md:text-lg text-white shadow-lg transition-all border-2
                     ${selectedAnswer === null || answerSubmitted 
                       ? 'bg-gray-400 border-gray-300 cursor-not-allowed' 
                       : 'bg-gradient-to-r from-secondary-500 to-secondary-600 border-secondary-300 hover:shadow-xl'}`}
@@ -155,12 +155,12 @@ function QuestionCard({ question, choices, correctAnswer, onAnswer }) {
             {selectedAnswer === correctAnswer ? (
               <div className="flex flex-col items-center">
                 <CheckCircleIcon className="h-10 w-10 text-green-500 mb-2" />
-                <p className="font-semibold">Benar! Jawabannya adalah {correctAnswer}</p>
+                <p className="font-semibold text-sm md:text-base">Benar! Jawabannya adalah {correctAnswer}</p>
               </div>
             ) : (
               <div className="flex flex-col items-center">
                 <XCircleIcon className="h-10 w-10 text-red-500 mb-2" />
-                <p className="font-semibold">Salah! Jawaban yang benar adalah {correctAnswer}</p>
+                <p className="font-semibold text-sm md:text-base">Salah! Jawaban yang benar adalah {correctAnswer}</p>
               </div>
             )}
           </motion.div>

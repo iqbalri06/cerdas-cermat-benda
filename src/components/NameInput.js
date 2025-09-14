@@ -24,6 +24,9 @@ function NameInput({ onSubmitName }) {
     
     setIsSubmitting(true);
     
+    // User ID generation is handled in the Quiz component now
+    // We don't need to create a user ID here as it's done in Quiz.js with UUID
+    
     // Store name in localStorage
     localStorage.setItem('userName', name);
     

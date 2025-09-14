@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-function FinalScore({ score, totalQuestions, playerName, onRestart }) {
+function FinalScore({ score, totalQuestions, playerName, userId, isRewardEligible, onRestart, onViewRewards }) {
   const [showConfetti, setShowConfetti] = useState(false);
   const percentage = Math.round((score / totalQuestions) * 100);
   
@@ -204,13 +204,22 @@ function FinalScore({ score, totalQuestions, playerName, onRestart }) {
           </motion.h3>
           
           <motion.div
-            className="bg-gradient-to-r from-secondary-500 to-secondary-600 text-white font-bold py-2 px-8 rounded-full text-2xl sm:text-3xl shadow-md border-2 border-secondary-300 mb-4"
+            className="bg-gradient-to-r from-secondary-500 to-secondary-600 text-white font-bold py-2 px-8 rounded-full text-2xl sm:text-3xl shadow-md border-2 border-secondary-300 mb-2"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
             whileHover={{ scale: 1.05 }}
           >
             {score} / {totalQuestions}
+          </motion.div>
+          
+          <motion.div
+            className="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm font-medium border border-green-300 mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+          >
+            Poin yang kamu dapatkan: {score} poin = Rp {score * 100}
           </motion.div>
           
           <motion.div
@@ -251,6 +260,20 @@ function FinalScore({ score, totalQuestions, playerName, onRestart }) {
               </span>
             </motion.button>
           </div>
+          
+          {/* Reward Button */}
+          <motion.button
+            className="mt-4 flex items-center justify-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-2 px-6 rounded-full border-2 border-amber-300 mx-auto shadow-md transition-all"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.3 }}
+            onClick={onViewRewards}
+          >
+            <span className="text-xl">🎁</span>
+            <span>Tukarkan Poin Hadiah</span>
+          </motion.button>
         </motion.div>
         
         {/* Achievement badges */}
@@ -304,6 +327,41 @@ function FinalScore({ score, totalQuestions, playerName, onRestart }) {
             </motion.div>
           )}
         </motion.div>
+        
+        {/* User ID for tracking */}
+        <motion.div
+          className="mt-4 text-center text-xs text-gray-500"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          ID Peserta: <span className="font-mono font-medium">{userId?.substring(0, 8)}</span>
+        </motion.div>
+        
+        {/* Reward eligibility notification */}
+        {isRewardEligible && (
+          <motion.div
+            className="mt-6 py-4 px-4 bg-gradient-to-r from-amber-50 to-amber-100 border-2 border-amber-300 rounded-xl shadow-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6 }}
+          >
+            <div className="flex items-center justify-center mb-2">
+              <motion.span 
+                className="text-3xl mr-2"
+                animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+              >
+                🎁
+              </motion.span>
+              <h3 className="text-amber-800 font-bold text-lg">Selamat! Kamu Mendapatkan Hadiah!</h3>
+            </div>
+            <p className="text-sm text-amber-700">Tunjukkan skor ini kepada petugas untuk mengklaim hadiahmu. ID Peserta dan skor akan diverifikasi.</p>
+            <div className="mt-3 p-2 bg-white/80 rounded-lg text-center border border-amber-200">
+              <p className="font-medium text-amber-900">Kode Hadiah: <span className="font-bold tracking-wider">{userId?.substring(0, 6).toUpperCase()}-{score}{totalQuestions}</span></p>
+            </div>
+          </motion.div>
+        )}
       </motion.div>
     </div>
   );
